@@ -216,8 +216,8 @@ class Game {
         } else {
             // Initialize default players if no game state found
             this.players = [
-                new Player("Player 1", new Hand([], new Deck([])), [], new Mushroom(30), new Hedge(20), new Deck([]), "", new Resources(5, 5, 5)),
-                new Player("Player 2", new Hand([], new Deck([])), [], new Mushroom(30), new Hedge(20), new Deck([]), "", new Resources(5, 5, 5)),
+                new Player("Player 1", new Hand([], new Deck([])), [], new Mushroom(30), new Hedge(20), new Deck([]), "", new Resources(2, 5, 2, 5, 2, 5)),
+                new Player("Player 2", new Hand([], new Deck([])), [], new Mushroom(30), new Hedge(20), new Deck([]), "", new Resources(2, 5, 2, 5, 2, 5)),
             ];
         }
     }
