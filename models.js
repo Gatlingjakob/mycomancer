@@ -6,10 +6,21 @@ class Game {
       this.active_player = active_player;
       this.background = background;
     }
+
+    startGame() {
+        this.state = "in progress";
+        this.turn_count = 1;
+        this.active_player = this.players[0];
+    }
+
+    endTurn() {
+        this.turn_count++;
+        this.active_player = this.players[this.turn_count % this.players.length]; // Switch active player
+    }
 }
 
 class Player {
-    constructor(name, hand, turn, buffs, mushroom, hedge, deck, hand, character, resources) {
+    constructor(name, hand, turn, buffs, mushroom, hedge, deck, character, resources) {
         this.name = name;
         this.hand = hand;
         this.turn = turn;
@@ -17,7 +28,6 @@ class Player {
         this.mushroom = mushroom;
         this.hedge = hedge;
         this.deck = deck;
-        this.hand = hand;
         this.character = character;
         this.resources = resources;
     }
@@ -88,6 +98,14 @@ class Deck {
     shuffle(){
         return "shuffled deck";
     }
+
+    /* shuffle() {
+        for (let i = this.cards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+        }
+        return this.cards;
+    } */
 }
 
 class Hand {
@@ -103,6 +121,28 @@ class Hand {
     discardCard(card){
         return `discarded ${card}`;
     }
+
+    /* drawCard() {
+        if (this.deck && this.deck.cards.length > 0) {
+            const drawnCard = this.deck.cards.pop();
+            this.cards.push(drawnCard);
+            return drawnCard;
+        } else {
+            console.log("No cards to draw!");
+            return null;
+        }
+    }
+
+    discardCard(card) {
+        const index = this.cards.indexOf(card);
+        if (index > -1) {
+            this.cards.splice(index, 1);
+            return card;
+        } else {
+            console.log("Card not in hand");
+            return null;
+        }
+    } */
 }
 
 class Buff {
@@ -113,10 +153,11 @@ class Buff {
         this.turn_activated = turn_activated;
     }
 
-    checkLength(length, turn_count, turn_activated){
-        if(turn_count - turn_activated > length){
-            return `${this.name} expired`;
+    checkLength(turn_count) {
+        if (turn_count - this.turn_activated >= this.length) {
+            return true;  // Buff has expired
         }
+        return false;  // Buff is still active
     }
 }
 
@@ -128,4 +169,17 @@ class Character {
     }
 }
 
-// Instantiate Data
+// Instantiate Data and setup game loop
+
+var player_one = new Player("Player 1")
+var player_two = new Player("Player 2")
+
+var players = [
+    player_one,
+    player_two,
+];
+
+var game = new Game("start", 0, players, players[0]);
+
+// use in game loop to check for buffs
+// player.buffs = player.buffs.filter(buff => !buff.checkLength(game.turn_count));
