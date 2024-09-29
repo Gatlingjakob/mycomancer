@@ -181,5 +181,5 @@ var players = [
 
 var game = new Game("start", 0, players, players[0]);
 
-// use in game loop to check for buffs
+// use game loop to check for buffs
 // player.buffs = player.buffs.filter(buff => !buff.checkLength(game.turn_count));
