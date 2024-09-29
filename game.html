@@ -7,14 +7,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Browser Card Game</h1>
+    <h1>Player 1's Turn</h1>
+    <div id="player-hand"></div>
+    <div id="scoreboard"></div>
 
-    <div id="game-board">
-        <!-- Game board will dynamically change based on state -->
-    </div>
+    <button onclick="playCard('Grow Hedge')">Play "Grow Hedge"</button>
+    <button onclick="playCard('Spore Blast')">Play "Spore Blast"</button>
 
-    <button id="startBtn">Start Game</button>
-
-    <script src="statemachine.js"></script>
+    <script src="models.js"></script>
 </body>
 </html>
