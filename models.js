@@ -1,14 +1,15 @@
 class Game {
-    constructor(state, turn_count, players, active_player) {
+    constructor(state, turn_count, players, active_player, background) {
       this.state = state;
       this.turn_count = turn_count;
       this.players = players;
       this.active_player = active_player;
+      this.background = background;
     }
 }
 
 class Player {
-    constructor(name, hand, turn, buffs, mushroom, hedge, deck, hand, character) {
+    constructor(name, hand, turn, buffs, mushroom, hedge, deck, hand, character, resources) {
         this.name = name;
         this.hand = hand;
         this.turn = turn;
@@ -18,10 +19,25 @@ class Player {
         this.deck = deck;
         this.hand = hand;
         this.character = character;
+        this.resources = resources;
     }
 
     play_card(card){
         return `${this.name} played ${card}`;
+    }
+}
+
+class Resources {
+    constructor(resources) {
+        this.resources = resources;
+    }
+}
+
+class Resource{
+    constructor(name, type, count) {
+        this.name = name;
+        this.type = type;
+        this.count = count;
     }
 }
 
