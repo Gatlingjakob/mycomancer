@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Game Test UI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Card Game</h1>
+    <div id="hand-container">
+        <h2>Your Hand</h2>
+        <!-- Cards will be rendered here -->
+    </div>
+    <div id="scoreboard">
+        <h2>Scoreboard</h2>
+        <div>
+            <h3>Player 1</h3>
+            <p>Mushroom Health: <span id="player1-mushroom-health">30</span></p>
+            <p>Hedge Health: <span id="player1-hedge-health">20</span></p>
+            <p>Resources: <span id="player1-resources">5 Spores, 5 Seeds</span></p>
+        </div>
+        <div>
+            <h3>Player 2</h3>
+            <p>Mushroom Health: <span id="player2-mushroom-health">30</span></p>
+            <p>Hedge Health: <span id="player2-hedge-health">20</span></p>
+            <p>Resources: <span id="player2-resources">5 Spores, 5 Seeds</span></p>
+        </div>
+    </div>
+    <button onclick="startGame()">Start Game</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
