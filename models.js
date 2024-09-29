@@ -20,10 +20,9 @@ class Game {
 }
 
 class Player {
-    constructor(name, hand, turn, buffs, mushroom, hedge, deck, character, resources) {
+    constructor(name, hand, buffs, mushroom, hedge, deck, character, resources) {
         this.name = name;
         this.hand = hand;
-        this.turn = turn;
         this.buffs = buffs;
         this.mushroom = mushroom;
         this.hedge = hedge;
@@ -37,25 +36,33 @@ class Player {
     }
 }
 
-class Resources {
-    constructor(resources) {
-        this.resources = resources;
+ class Resources {
+    constructor(sporecerers, spores, gardeners, seeds, nurturers, rations, mushroom, hedge) {
+        this.sporecerers = sporecerers;
+        this.spores = spores;
+        this.gardeners = gardeners;
+        this.seeds = seeds;
+        this.nurturers = nurturers;
+        this.rations = rations;
+        this.mushroom = mushroom;
+        this.hedge = hedge;
     }
 }
 
-class Resource{
+/* class Resource{
     constructor(name, type, count) {
         this.name = name;
         this.type = type;
         this.count = count;
     }
-}
+} */
 
 class Card {
-    constructor(name, effect, cost) {
+    constructor(name, effect, cost, cost_type) {
         this.name = name;
         this.effect = effect;
         this.cost = cost;
+        this.cost_type = cost_type;
     }
 }
 
@@ -112,6 +119,10 @@ class Hand {
     constructor(cards, deck) {
         this.cards = cards;
         this.deck = deck;
+    }
+
+    fillhand(){
+        return 'hand filled'
     }
 
     drawCard(card, deck){
@@ -171,8 +182,38 @@ class Character {
 
 // Instantiate Data and setup game loop
 
-var player_one = new Player("Player 1")
-var player_two = new Player("Player 2")
+var test_card = new Card(
+    "Grow Hedge", 
+    function (active_player) {
+    opponent.health -= 5;
+    active_player.hedge.health += 8;
+    }, 
+    10, 
+    "seeds")
+
+var player_one_character = new Character("Spinki", "Spinki Blast", undefined);
+var player_two_character = new Character("Zinci", "Zinci Blast", undefined);
+
+var player_one_deck_cards = [];
+var player_two_deck_cards = [];
+
+var player_one_deck = new Deck(player_one_deck_cards, player_one_deck_cards.length)
+var player_two_deck = new Deck(player_two_deck_cards, player_two_deck_cards.length)
+
+var player_one_hand = new Hand(undefined, player_one_deck)
+var player_two_hand = new Hand(undefined, player_two_deck)
+
+var player_one_mushroom = new Mushroom(30)
+var player_two_mushroom = new Mushroom(30)
+
+var Player_one_hedge = new Hedge(20)
+var Player_two_hedge = new Hedge(20)
+
+var player_one_resources = new Resources(2, 5, 2, 5, 2, 5, player_one_mushroom.health, player_one_hedge.health)
+var player_two_resources = new Resources(2, 5, 2, 5, 2, 5, player_two_mushroom.health, player_two_hedge.health)
+
+var player_one = new Player("Player 1", player_one_hand, [], player_one_mushroom, player_one_hedge, player_one_deck, player_one_character, player_one_resources)
+var player_two = new Player("Player 2", player_two_hand, [], player_two_mushroom, player_two_hedge, player_two_deck, player_two_character, player_two_resources)
 
 var players = [
     player_one,
