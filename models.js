@@ -17,6 +17,10 @@ class Game {
         this.turn_count++;
         this.active_player = this.players[this.turn_count % this.players.length]; // Switch active player
     }
+
+    getActivePlayer(){
+        return this.active_player;
+    }
 }
 
 class Player {
