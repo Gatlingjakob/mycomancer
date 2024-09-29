@@ -1,11 +1,11 @@
 class Game {
     constructor(state, turn_count, players, active_player, background) {
-      this.state = state;
-      this.turn_count = turn_count;
-      this.players = players;
-      this.active_player = active_player;
-      this.background = background;
-      this.cardList = this.initializeCardList();
+        this.state = state;
+        this.turn_count = turn_count;
+        this.players = players;
+        this.active_player = active_player;
+        this.background = background;
+        this.cardList = this.initializeCardList();
     }
 
     findCardByName(card_name) {
@@ -21,34 +21,32 @@ class Game {
     endTurn() {
         this.turn_count++;
         this.active_player = this.players[this.turn_count % this.players.length]; // Switch active player
+        saveGame(); // Save state after ending a turn
     }
 
-    getActivePlayer(){
-        if(this.active_player == this.players[0]){
-            return this.players[0]
-        } else {
-            return this.players[1]
-        }
+    getActivePlayer() {
+        return this.active_player; // Simplified to return directly
     }
 
-    getOpposingPlayer(){
-        if(this.active_player == this.players[1]){
-            return this.players[0]
-        } else {
-            return this.players[1]
-        }
+    getOpposingPlayer() {
+        return this.players.find(player => player !== this.active_player); // Find opposing player
     }
 
     playCardByName(card_name) {
         const activePlayer = this.getActivePlayer();
         const card = activePlayer.hand.cards.find(card => card.name === card_name);
-    
+
         if (card) {
             // Try to play the card if found in hand
             card.play(activePlayer, this.getOpposingPlayer());
             activePlayer.hand.discardCard(card);  // Discard card after play
+
+            // Save game state after playing a card
+            saveGame();
+            return `Played ${card.name} from hand.`;
         } else {
             console.log(`Card with name "${card_name}" not found in hand.`);
+            return `Card with name "${card_name}" not found in hand.`;
         }
     }
 
@@ -62,8 +60,6 @@ class Game {
             new Card("Spore Blast", (active_player, opposing_player) => {
                 opposing_player.mushroom.subtractHealth(10);
             }, 7, "spores"),
-
-            // Add more cards here
         ];
     }
 }
@@ -178,43 +174,45 @@ class Deck {
 
 class Hand {
     constructor(cards, deck) {
-        this.cards = cards;
-        this.deck = deck;
+        this.cards = cards; // Array of cards currently in hand
+        this.deck = deck;   // Reference to the deck from which cards are drawn
+        this.maxHandSize = 7; // Maximum hand size set to 7
     }
 
-    fillhand(){
-        return 'hand filled'
+    // Fill the hand with cards from the deck, up to the maximum hand size
+    fillHand() {
+        while (this.cards.length < this.maxHandSize && this.deck.cards.length > 0) {
+            const drawnCard = this.deck.cards.pop(); // Draw a card from the deck
+            this.cards.push(drawnCard);               // Add it to the hand
+        }
+        return `Hand filled with ${this.cards.length} cards.`;
     }
 
-    drawCard(card, deck){
-        return `drew ${card} from ${deck}`;
-    }
-
-    discardCard(card){
-        return `discarded ${card}`;
-    }
-
-    /* drawCard() {
-        if (this.deck && this.deck.cards.length > 0) {
-            const drawnCard = this.deck.cards.pop();
-            this.cards.push(drawnCard);
-            return drawnCard;
+    // Draw a specific card from the deck and add it to the hand
+    drawCard() {
+        if (this.cards.length < this.maxHandSize) { // Check if hand is not full
+            if (this.deck.cards.length > 0) {
+                const drawnCard = this.deck.cards.pop(); // Draw the top card from the deck
+                this.cards.push(drawnCard);               // Add it to the hand
+                return `Drew ${drawnCard.name} from the deck.`;
+            } else {
+                return 'No cards left in the deck to draw!';
+            }
         } else {
-            console.log("No cards to draw!");
-            return null;
+            return 'Cannot draw card, hand is full!';
         }
     }
 
+    // Discard a specific card from the hand
     discardCard(card) {
         const index = this.cards.indexOf(card);
         if (index > -1) {
-            this.cards.splice(index, 1);
-            return card;
+            this.cards.splice(index, 1); // Remove the card from hand
+            return `Discarded ${card.name} from hand.`;
         } else {
-            console.log("Card not in hand");
-            return null;
+            return 'Card not found in hand.';
         }
-    } */
+    }
 }
 
 class Buff {
