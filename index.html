@@ -92,6 +92,8 @@ document.getElementById('start-game').onclick = () => {
     startGame(); // Start the game
     updateHandUI(); // Update the UI to show the player's hand
     updateScoreboardUI(); // Update scoreboard after starting the game
+    // Hide the start game button after it is clicked
+    document.getElementById('start-game').style.display = 'none';
 };
 
 // Update the UI after playing a card

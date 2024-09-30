@@ -157,3 +157,24 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+#start-game {
+    border: 3px solid #977e50;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #e4d6b8;
+    border-radius: 8px; /* Rounded corners for a carved board look */
+    padding: 20px 50px; /* Add some padding to make the button large */
+    font-size: 28px; /* Increase font size for visibility */
+    font-family: 'Cursive', sans-serif; /* Stylized font */
+    cursor: pointer; /* Show a pointer cursor when hovering */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5); /* Add a shadow to create a 3D effect */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Animation for hover */
+    background-color: #e4d6b8;
+    color:rgb(75, 113, 156);
+}
+
+#start-game:hover {
+    transform: scale(1.05); /* Slightly enlarge the button when hovered */
+    box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.7); /* Increase shadow on hover */
+}
