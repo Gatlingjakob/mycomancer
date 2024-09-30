@@ -1,3 +1,10 @@
+// current bugs:
+// the game generates 6 players instead of 2 
+// mushroom and hedge health gets set to undefined sometimes
+// add resource generator logic
+// add discard
+// add game over conditions etc when everything else works
+
 // Card class to represent each card
 class Card {
     constructor(name, effect, cost, cost_type) {
@@ -241,26 +248,28 @@ class Game {
     }
 
     initializePlayers() {
-        const player1Resources = new Resources(50, 50, 50, 2, 2, 2);
-        const player2Resources = new Resources(50, 50, 50, 2, 2, 2);
-        const player1Mushroom = new Mushroom(30);
-        const player1Hedge = new Hedge(20);
-        const player2Mushroom = new Mushroom(30);
-        const player2Hedge = new Hedge(20);
+        if(this.players.length < 2){
+            const player1Resources = new Resources(50, 50, 50, 2, 2, 2);
+            const player2Resources = new Resources(50, 50, 50, 2, 2, 2);
+            const player1Mushroom = new Mushroom(30);
+            const player1Hedge = new Hedge(20);
+            const player2Mushroom = new Mushroom(30);
+            const player2Hedge = new Hedge(20);
 
-        const player1Hand = new Hand([], new Deck(this.cardList));
-        const player2Hand = new Hand([], new Deck(this.cardList));
+            const player1Hand = new Hand([], new Deck(this.cardList));
+            const player2Hand = new Hand([], new Deck(this.cardList));
 
-        player1Hand.deck.shuffle();
-        player2Hand.deck.shuffle();
+            player1Hand.deck.shuffle();
+            player2Hand.deck.shuffle();
 
-        player1Hand.fillHand(); // Fill hand for player 1
-        player2Hand.fillHand(); // Fill hand for player 2
+            player1Hand.fillHand(); // Fill hand for player 1
+            player2Hand.fillHand(); // Fill hand for player 2
 
-        this.players.push(new Player("Player 1", player1Hand, [], player1Mushroom, player1Hedge, null, player1Resources));
-        this.players.push(new Player("Player 2", player2Hand, [], player2Mushroom, player2Hedge, null, player2Resources));
+            this.players.push(new Player("Player 1", player1Hand, [], player1Mushroom, player1Hedge, null, player1Resources));
+            this.players.push(new Player("Player 2", player2Hand, [], player2Mushroom, player2Hedge, null, player2Resources));
 
-        this.active_player = this.players[0]; // Set the first player as active
+            this.active_player = this.players[0]; // Set the first player as active
+        }
     }
 
     startGame() {
