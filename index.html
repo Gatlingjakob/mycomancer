@@ -4,56 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Card Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f0f0f0;
-        }
-        #game-container {
-            border: 1px solid #ccc;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-        }
-        #hand {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .card {
-            border: 1px solid #007bff;
-            border-radius: 5px;
-            padding: 10px;
-            background-color: #e7f0ff;
-            cursor: pointer;
-            transition: transform 0.2s;   
-            width: 90px;
-            height: 140px;
-            text-align: center;
-            text-overflow: ellipsis;
-        }
-        .card:hover {
-            transform: scale(1.05);
-        }
-        #status {
-            margin-top: 20px;
-        }
-        #scoreboard {
-            margin-top: 20px;
-            border-top: 1px solid #ccc;
-            padding-top: 10px;
-        }
-        .player-stats {
-            margin-bottom: 10px;
-        }
-        .active-player {
-            font-weight: bold;
-            color: #007bff;
-            font-size: 1.2em;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
 </head>
 <body>
 
@@ -85,7 +36,10 @@ function updateHandUI() {
     activePlayer.hand.cards.forEach(card => {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
-        cardDiv.innerHTML = card.name; // Display card name
+        cardDiv.innerHTML = `
+            ${card.name}<br><br>
+            ${card.cost} ${card.cost_type}
+        `; // Display card contents
         cardDiv.onclick = () => playCard(card.name); // Play card on click
         handDiv.appendChild(cardDiv); // Add card to hand display
     });

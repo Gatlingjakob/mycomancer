@@ -1,6 +1,8 @@
 // current bugs:
 // add discard
 // add game over conditions etc when everything else works
+// add UI
+// art assets
 
 // Card class to represent each card
 class Card {
