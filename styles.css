@@ -5,17 +5,20 @@ body {
 }
 
 #game-container {
-    border: 1px solid #ccc;
     padding: 20px;
     background: rgb(127 157 154);
     border-radius: 10px;
 }
 
 #hand {
+    
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
+    justify-content: space-between;
+    width: 50%;
 }
 
 .card {
@@ -39,11 +42,11 @@ body {
 
 #status {
     margin-top: 20px;
+    color: white;
 }
 
 #scoreboard {
     margin-top: 20px;
-    border-top: 1px solid #ccc;
     padding-top: 10px;
 }
 
@@ -78,6 +81,7 @@ body {
     height: 100%;
     background: url('images/swamp_background.jpg') no-repeat center center;
     background-size: cover;
+    z-index: -1;
 }
 
 /* Stats Container */
@@ -145,4 +149,11 @@ body {
     display: flex;
     justify-content: space-between;
     width: 50%;
+}
+
+.centered-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
