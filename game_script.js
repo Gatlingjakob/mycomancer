@@ -6,11 +6,12 @@
 
 // Card class to represent each card
 class Card {
-    constructor(name, effect, cost, cost_type) {
+    constructor(name, effect, cost, cost_type, effect_description) {
         this.name = name;
         this.effect = effect; // Function to call when card is played
         this.cost = cost; // Cost to play the card
         this.cost_type = cost_type; // Type of cost (seeds, spores, rations)
+        this.effect_description = effect_description; // Type of cost (seeds, spores, rations)
     }
 
     play(active_player, opposing_player) {
@@ -129,13 +130,13 @@ class Game {
         const cardBaseList = [
             new Card("Bush", (active_player, opposing_player) => {
                 active_player.hedge.addHealth(3);
-            }, 1, "seeds"),
+            }, 1, "seeds", "Hedge +3"),
             new Card("Stem", (active_player, opposing_player) => {
                 active_player.mushroom.addHealth(2);
-            }, 1, "seeds"),
+            }, 1, "seeds", "Mushroom +2"),
             new Card("Hedge", (active_player, opposing_player) => {
                 active_player.hedge.addHealth(6);
-            }, 3, "seeds"),
+            }, 3, "seeds", "Hedge +6"),
             new Card("Compost", (active_player, opposing_player) => {
                 if(active_player.hedge.health >= 4){
                     active_player.mushroom.addHealth(8);
@@ -143,46 +144,46 @@ class Game {
                 } else{    
                     active_player.mushroom.addHealth(4);
                 }
-            }, 3, "seeds"),
+            }, 3, "seeds", "Mushroom +8, Hedge -4"),
             new Card("Grow", (active_player, opposing_player) => {
                 active_player.mushroom.addHealth(5);
-            }, 5, "seeds"),
+            }, 5, "seeds", "Mushroom +5"),
             new Card("Greenhouse", (active_player, opposing_player) => {
                 active_player.resources.gardeners++;
-            }, 8, "seeds"),
+            }, 8, "seeds", "Gardeners +1"),
             new Card("Root Tap", (active_player, opposing_player) => {
                 active_player.mushroom.addHealth(8);
                 this.dealDamage(4, opposing_player);
-            }, 10, "seeds"),
+            }, 10, "seeds", "Mushroom +8, Attack 4"),
             new Card("Garden Wall", (active_player, opposing_player) => {
                 active_player.hedge.addHealth(22);
-            }, 12, "seeds"),
+            }, 12, "seeds", "Hedge +22"),
             new Card("Fungus", (active_player, opposing_player) => {
                 active_player.mushroom.addHealth(20);
-            }, 18, "seeds"),
+            }, 18, "seeds", "Mushroom +20"),
             new Card("Tower Cap", (active_player, opposing_player) => {
                 active_player.mushroom.addHealth(32);
-            }, 39, "seeds"),
+            }, 39, "seeds", "Mushroom +32"),
             new Card("Mites", (active_player, opposing_player) => {
                 this.dealDamage(2, opposing_player);
-            }, 1, "rations"),
+            }, 1, "rations", "Attack 2"),
             new Card("Beetle", (active_player, opposing_player) => {
                 this.dealDamage(3, opposing_player);
-            }, 2, "rations"),
+            }, 2, "rations", "Attack 3"),
             new Card("Mantis", (active_player, opposing_player) => {
                 this.dealDamage(6, opposing_player);
-            }, 4, "rations"),
+            }, 4, "rations", "Attack 6"),
             new Card("Colony", (active_player, opposing_player) => {
                 active_player.resources.nurturers++;
-            }, 8, "rations"),
+            }, 8, "rations", "Nurturers +1"),
             new Card("Wolves", (active_player, opposing_player) => {
                 this.dealDamage(12, opposing_player);
-            }, 10, "rations"),
+            }, 10, "rations", "Attack 12"),
             new Card("Sabotage", (active_player, opposing_player) => {
                 opposing_player.resources.seeds -= 4;
                 opposing_player.resources.spores -= 4;
                 opposing_player.resources.rations -= 4;
-            }, 12, "rations"),
+            }, 12, "rations", "Enemy Resources -4"),
             new Card("Heist", (active_player, opposing_player) => {
                 opposing_player.resources.seeds -= 5;
                 opposing_player.resources.spores -= 5;
@@ -190,42 +191,42 @@ class Game {
                 active_player.resources.seeds += 5;
                 active_player.resources.spores += 5;
                 active_player.resources.rations += 5;
-            }, 15, "rations"),
+            }, 15, "rations", "Steal 5 Resources"),
             new Card("Grizzly", (active_player, opposing_player) => {
-                this.dealDamage(10, opposing_player);
-            }, 18, "rations"),
+                this.dealDamage(16, opposing_player);
+            }, 15, "rations", "Attack 16"),
             new Card("Armada", (active_player, opposing_player) => {
                 this.dealDamage(32, opposing_player);
-            }, 28, "rations"),
+            }, 28, "rations", "Attack 32"),
             new Card("Sprout", (active_player, opposing_player) => {
                 active_player.resources.seeds += 8;
-            }, 4, "spores"),
+            }, 4, "spores", "Seeds +8"),
             new Card("Mycelium", (active_player, opposing_player) => {
                 active_player.resources.spores += 10;
-            }, 4, "spores"),
+            }, 5, "spores", "Spores +10"),
             new Card("Conjure", (active_player, opposing_player) => {
                 active_player.resources.rations += 8;
-            }, 4, "spores"),
+            }, 4, "spores", "Rations +8"),
             new Card("Wither", (active_player, opposing_player) => {
                 opposing_player.resources.seeds -= 8;
-            }, 4, "spores"),
+            }, 4, "spores", "Enemy Seeds -8"),
             new Card("Spore Zap", (active_player, opposing_player) => {
                 opposing_player.resources.spores -= 8;
-            }, 4, "spores"),
+            }, 4, "spores", "Enemy Spores -8"),
             new Card("Mold", (active_player, opposing_player) => {
                 opposing_player.resources.rations -= 8;
-            }, 4, "spores"),
+            }, 4, "spores", "Enemy Spores -8"),
             new Card("Symposium", (active_player, opposing_player) => {
                 active_player.resources.sporecerers++;
-            }, 8, "rations"),
+            }, 8, "rations", "Sporecerers +1"),
             new Card("Neural Barrage", (active_player, opposing_player) => {
                 this.dealDamage(25, opposing_player);
-            }, 21, "spores"),
+            }, 21, "spores", "Attack 25"),
             new Card("Root Network", (active_player, opposing_player) => {
-                active_player.resources.seeds += 12;
-                active_player.resources.spores += 12;
-                active_player.resources.rations += 12;
-            }, 40, "seeds"),
+                active_player.resources.seeds += 18;
+                active_player.resources.spores += 18;
+                active_player.resources.rations += 18;
+            }, 40, "seeds", "Resources +12"),
         ];
 
         const fullCardList = [];
@@ -234,7 +235,7 @@ class Game {
         cardBaseList.forEach(card => {
             const numberOfCopies = Math.floor(Math.random() * 2) + 2; // Randomly add 2 or 3 copies
             for (let i = 0; i < numberOfCopies; i++) {
-                fullCardList.push(new Card(card.name, card.effect, card.cost, card.cost_type));
+                fullCardList.push(new Card(card.name, card.effect, card.cost, card.cost_type, card.effect_description));
             }
         });
 

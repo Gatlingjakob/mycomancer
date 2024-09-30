@@ -38,7 +38,8 @@ function updateHandUI() {
         cardDiv.className = 'card';
         cardDiv.innerHTML = `
             ${card.name}<br><br>
-            ${card.cost} ${card.cost_type}
+            (${card.cost} ${card.cost_type})<br><br>
+            ${card.effect_description}
         `; // Display card contents
         cardDiv.onclick = () => playCard(card.name); // Play card on click
         handDiv.appendChild(cardDiv); // Add card to hand display
