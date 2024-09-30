@@ -261,8 +261,8 @@ class Game {
 
     initializePlayers() {
         if(this.players.length < 2){
-            const player1Resources = new Resources(50, 50, 50, 2, 2, 2);
-            const player2Resources = new Resources(50, 50, 50, 2, 2, 2);
+            const player1Resources = new Resources(50, 50, 50, 3, 3, 3);
+            const player2Resources = new Resources(50, 50, 50, 3, 3, 3);
             const player1Mushroom = new Mushroom(30);
             const player1Hedge = new Hedge(20);
             const player2Mushroom = new Mushroom(30);
@@ -299,7 +299,7 @@ class Game {
                 this.active_player.hand.discardCard(card); // Discard the played card
                 this.active_player.hand.fillHand(); // Refill the hand after playing a card
                 this.endTurn(); // End the current turn
-                return `Played card: ${card.name}`;
+                return `Played card: ${card.name}: ${card.effect_description}`;
             } else {
                 return `Not enough resources to play ${card.name}`;
             }
