@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Game</title>
+    <title>Mycomancers</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
 </head>
 <body>
 
 <div id="game-container">
-    <h1>Card Game</h1>
+    <h1>Mycomancers</h1>
     <button id="start-game">Start Game</button>
     <div id="hand"></div>
     <div id="status"></div>
@@ -37,9 +37,9 @@ function updateHandUI() {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
         cardDiv.innerHTML = `
-            ${card.name}<br><br>
+            ${card.name}<br>
             (${card.cost} ${card.cost_type})<br><br>
-            ${card.effect_description}
+            <div class="card-effect-text">${card.effect_description}</div>
         `; // Display card contents
         cardDiv.onclick = () => playCard(card.name); // Play card on click
         handDiv.appendChild(cardDiv); // Add card to hand display
@@ -55,15 +55,15 @@ function updateScoreboardUI() {
         const playerDiv = document.createElement('div');
         playerDiv.className = 'player-stats';
         playerDiv.innerHTML = `
-            <strong>${player.name}</strong>: 
-            Seeds: ${player.resources.seeds}, 
-            Spores: ${player.resources.spores}, 
-            Rations: ${player.resources.rations}, 
-            Mushroom Health: ${player.mushroom.health}, 
-            Hedge Health: ${player.hedge.health}, 
-            Gardeners: ${player.resources.gardeners}, 
-            Nurturers: ${player.resources.nurturers}, 
-            Sporecerers: ${player.resources.sporecerers}
+            <strong>${player.name}</strong>: <br>
+            Sporecerers: ${player.resources.sporecerers}<br>
+            Spores: ${player.resources.spores}<br> 
+            Gardeners: ${player.resources.gardeners}<br>
+            Seeds: ${player.resources.seeds}<br>
+            Nurturers: ${player.resources.nurturers}<br>
+            Rations: ${player.resources.rations}<br>
+            Mushroom Health: ${player.mushroom.health}<br>
+            Hedge Health: ${player.hedge.health}<br>
         `;
         playersStatsDiv.appendChild(playerDiv); // Add player stats to scoreboard
     });

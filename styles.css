@@ -7,7 +7,7 @@ body {
 #game-container {
     border: 1px solid #ccc;
     padding: 20px;
-    background: white;
+    background: rgb(127 157 154);
     border-radius: 10px;
 }
 
@@ -19,16 +19,18 @@ body {
 }
 
 .card {
-    border: 1px solid #007bff;
+    border: 3px solid #977e50;
     border-radius: 5px;
     padding: 10px;
-    background-color: #e7f0ff;
+    background-color: #e4d6b8;
     cursor: pointer;
     transition: transform 0.2s;   
     width: 90px;
     height: 140px;
     text-align: center;
     text-overflow: ellipsis;
+    color:darkslategrey;
+    font-weight: bold;
 }
 
 .card:hover {
@@ -53,4 +55,9 @@ body {
     font-weight: bold;
     color: #007bff;
     font-size: 1.2em;
+}
+
+.card-effect-text{
+    color: green;
+    text-align: center;
 }
