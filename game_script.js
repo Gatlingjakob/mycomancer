@@ -1,7 +1,4 @@
 // current bugs:
-// the game generates 6 players instead of 2 
-// mushroom and hedge health gets set to undefined sometimes
-// add resource generator logic
 // add discard
 // add game over conditions etc when everything else works
 
@@ -127,7 +124,7 @@ class Game {
     }
 
     initializeCardList() {
-        return [
+        const cardBaseList = [
             new Card("Bush", (active_player, opposing_player) => {
                 active_player.hedge.addHealth(3);
             }, 1, "seeds"),
@@ -228,6 +225,18 @@ class Game {
                 active_player.resources.rations += 12;
             }, 40, "seeds"),
         ];
+
+        const fullCardList = [];
+
+        // Add 2-3 copies of each card to the deck
+        cardBaseList.forEach(card => {
+            const numberOfCopies = Math.floor(Math.random() * 2) + 2; // Randomly add 2 or 3 copies
+            for (let i = 0; i < numberOfCopies; i++) {
+                fullCardList.push(new Card(card.name, card.effect, card.cost, card.cost_type));
+            }
+        });
+
+        return fullCardList; // Return the full card list with duplicates
     }
 
     dealDamage(damage, opponent) {
@@ -318,6 +327,9 @@ class Game {
     endTurn() {
         // Move to the next player's turn
         this.active_player = this.players[(this.players.indexOf(this.active_player) + 1) % this.players.length];
+        this.active_player.resources.seeds += this.active_player.resources.gardeners;
+        this.active_player.resources.spores += this.active_player.resources.sporecerers;
+        this.active_player.resources.rations += this.active_player.resources.nurturers;
         this.turn_count++; // Increment turn count
         this.updateUI(); // Update the UI after ending the turn
         updateScoreboardUI(); // Ensure the scoreboard is updated at the end of each turn
