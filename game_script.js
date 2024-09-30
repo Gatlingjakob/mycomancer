@@ -46,7 +46,7 @@ class Hand {
     }
 
     fillHand() {
-        while (this.cards.length < 5 && this.deck.cards.length > 0) { // Ensure hand has 5 cards
+        while (this.cards.length < 7 && this.deck.cards.length > 0) { // Ensure hand has 5 cards
             const card = this.deck.drawCard(); // Draw card from deck
             this.cards.push(card); // Add card to hand
         }
@@ -153,7 +153,7 @@ class Game {
             }, 8, "seeds"),
             new Card("Root Tap", (active_player, opposing_player) => {
                 active_player.mushroom.addHealth(8);
-                opposing_player.mushroom.subtractHealth(4);
+                this.dealDamage(4, opposing_player);
             }, 10, "seeds"),
             new Card("Garden Wall", (active_player, opposing_player) => {
                 active_player.hedge.addHealth(22);
@@ -193,7 +193,7 @@ class Game {
                 active_player.resources.rations += 5;
             }, 15, "rations"),
             new Card("Grizzly", (active_player, opposing_player) => {
-                opposing_player.mushroom.subtractHealth(10);
+                this.dealDamage(10, opposing_player);
             }, 18, "rations"),
             new Card("Armada", (active_player, opposing_player) => {
                 this.dealDamage(32, opposing_player);
@@ -243,7 +243,7 @@ class Game {
             opponent.mushroom -= damage; // Directly deal damage to mushroom
         }
 
-        // Ensure mushroom and hedge do not go negative
+        // Ensure hedge does not go negative
         opponent.hedge = Math.max(opponent.hedge, 0);
     }
 
