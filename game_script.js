@@ -231,20 +231,20 @@ class Game {
     }
 
     dealDamage(damage, opponent) {
-        if (opponent.hedge > 0) {
-            if (damage <= opponent.hedge) {
-                opponent.hedge -= damage; // Deal damage to hedge
+        if (opponent.hedge.health > 0) {
+            if (damage <= opponent.hedge.health) {
+                opponent.hedge.health -= damage; // Deal damage to hedge
             } else {
-                const overkill = damage - opponent.hedge; // Calculate overkill damage
-                opponent.hedge = 0; // Shield is exhausted
-                opponent.mushroom -= overkill; // Deal excess damage to mushroom
+                const overkill = damage - opponent.hedge.health; // Calculate overkill damage
+                opponent.hedge.health = 0; // Shield is exhausted
+                opponent.mushroom.health -= overkill; // Deal excess damage to mushroom
             }
         } else {
-            opponent.mushroom -= damage; // Directly deal damage to mushroom
+            opponent.mushroom.health -= damage; // Directly deal damage to mushroom
         }
 
         // Ensure hedge does not go negative
-        opponent.hedge = Math.max(opponent.hedge, 0);
+        opponent.hedge.health = Math.max(opponent.hedge.health, 0);
     }
 
     initializePlayers() {
