@@ -57,11 +57,11 @@ function updateScoreboardUI() {
         playerDiv.innerHTML = `
             <strong>${player.name}</strong>: <br>
             Sporecerers: ${player.resources.sporecerers}<br>
-            Spores: ${player.resources.spores}<br> 
+            Spores: ${player.resources.spores}<br><br>
             Gardeners: ${player.resources.gardeners}<br>
-            Seeds: ${player.resources.seeds}<br>
+            Seeds: ${player.resources.seeds}<br><br>
             Nurturers: ${player.resources.nurturers}<br>
-            Rations: ${player.resources.rations}<br>
+            Rations: ${player.resources.rations}<br><br>
             Mushroom Health: ${player.mushroom.health}<br>
             Hedge Health: ${player.hedge.health}<br>
         `;
@@ -70,7 +70,7 @@ function updateScoreboardUI() {
 
     // Update the active player name display
     const activePlayerNameDiv = document.getElementById('active-player-name');
-    activePlayerNameDiv.innerHTML = `Active Player: ${game.active_player.name}`;
+    activePlayerNameDiv.innerHTML = `Active Player: ${game.active_player.name} <br><br>`;
 }
 
 // Start the game button listener

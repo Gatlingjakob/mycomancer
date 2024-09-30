@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
     background-color: #f0f0f0;
+    margin: 0;
 }
 
 #game-container {
@@ -60,4 +60,89 @@ body {
 .card-effect-text{
     color: green;
     text-align: center;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Background */
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/swamp_background.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+/* Stats Container */
+.stats-container {
+    position: absolute;
+    top: 10%;
+    width: 150px;
+}
+
+.stats-container.left {
+    left: 5%;
+}
+
+.stats-container.right {
+    right: 5%;
+}
+
+.stat-box {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.stat-box span {
+    display: block;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Different box colors */
+.blue { background-color: #cce0f5; }
+.green { background-color: #d1f5e0; }
+.purple { background-color: #d1d5f5; }
+.gray { background-color: #dcdcdc; }
+
+/* Mushroom Area */
+.mushroom-area {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.character {
+    width: 100px;
+    text-align: center;
+}
+
+.character img {
+    width: 100%;
+}
+
+/* Card Container */
+.card-container {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
 }
