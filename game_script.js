@@ -1,10 +1,121 @@
+// Card class to represent each card
+class Card {
+    constructor(name, effect, cost, cost_type) {
+        this.name = name;
+        this.effect = effect; // Function to call when card is played
+        this.cost = cost; // Cost to play the card
+        this.cost_type = cost_type; // Type of cost (seeds, spores, rations)
+    }
+
+    play(active_player, opposing_player) {
+        this.effect(active_player, opposing_player); // Execute the card effect
+    }
+}
+
+// Deck class to represent a deck of cards
+class Deck {
+    constructor(cards) {
+        this.cards = cards; // Array of Card objects
+    }
+
+    shuffle() {
+        // Simple shuffle algorithm
+        for (let i = this.cards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+        }
+    }
+
+    drawCard() {
+        return this.cards.pop(); // Draw the top card
+    }
+}
+
+// Hand class to represent a player's hand of cards
+class Hand {
+    constructor(cards, deck) {
+        this.cards = cards; // Array of Card objects in hand
+        this.deck = deck; // The deck from which to draw cards
+    }
+
+    fillHand() {
+        while (this.cards.length < 5 && this.deck.cards.length > 0) { // Ensure hand has 5 cards
+            const card = this.deck.drawCard(); // Draw card from deck
+            this.cards.push(card); // Add card to hand
+        }
+    }
+
+    discardCard(card) {
+        const index = this.cards.indexOf(card);
+        if (index !== -1) {
+            this.cards.splice(index, 1); // Remove card from hand
+        }
+    }
+}
+
+// Player class to represent a player in the game
+class Player {
+    constructor(name, hand, playedCards, mushroom, hedge, effect, resources) {
+        this.name = name; // Player name
+        this.hand = hand; // Player's hand
+        this.playedCards = playedCards; // Cards that have been played
+        this.mushroom = mushroom; // Player's mushroom (health)
+        this.hedge = hedge; // Player's hedge (health)
+        this.effect = effect; // Effect of the player (if any)
+        this.resources = resources; // Player's resources
+    }
+}
+
+// Mushroom class to manage the health of the mushroom
+class Mushroom {
+    constructor(health) {
+        this.health = health; // Health of the mushroom
+    }
+
+    addHealth(amount) {
+        this.health += amount; // Add health
+    }
+
+    subtractHealth(amount) {
+        this.health -= amount; // Subtract health
+    }
+}
+
+// Hedge class to manage the health of the hedge
+class Hedge {
+    constructor(health) {
+        this.health = health; // Health of the hedge
+    }
+
+    addHealth(amount) {
+        this.health += amount; // Add health
+    }
+
+    subtractHealth(amount) {
+        this.health -= amount; // Subtract health
+    }
+}
+
+// Resources class to manage a player's resources
+class Resources {
+    constructor(seeds, spores, rations, gardeners, nurturers, sporecerers) {
+        this.seeds = seeds; // Number of seeds
+        this.spores = spores; // Number of spores
+        this.rations = rations; // Number of rations
+        this.gardeners = gardeners; // Number of gardeners
+        this.nurturers = nurturers; // Number of nurturers
+        this.sporecerers = sporecerers; // Number of sporecerers
+    }
+}
+
+// Game class to manage the overall game state
 class Game {
     constructor() {
-        this.state = "not started";
-        this.turn_count = 0;
-        this.players = [];
-        this.active_player = null;
-        this.cardList = this.initializeCardList();
+        this.state = "not started"; // Initial game state
+        this.turn_count = 0; // Track turn count
+        this.players = []; // Array to hold players
+        this.cardList = this.initializeCardList(); // Initialize card list
+        this.active_player = null; // Current active player
         this.loadGame(); // Load game state from localStorage
     }
 
@@ -20,7 +131,7 @@ class Game {
                 active_player.hedge.addHealth(6);
             }, 3, "seeds"),
             new Card("Compost", (active_player, opposing_player) => {
-                if(active_player.hedge >= 4){
+                if(active_player.hedge.health >= 4){
                     active_player.mushroom.addHealth(8);
                     active_player.hedge.subtractHealth(4);
                 } else{    
@@ -31,7 +142,7 @@ class Game {
                 active_player.mushroom.addHealth(5);
             }, 5, "seeds"),
             new Card("Greenhouse", (active_player, opposing_player) => {
-                active_player.resources.gardeners = active_player.resources.gardeners + 1;
+                active_player.resources.gardeners++;
             }, 8, "seeds"),
             new Card("Root Tap", (active_player, opposing_player) => {
                 active_player.mushroom.addHealth(8);
@@ -56,23 +167,23 @@ class Game {
                 this.dealDamage(6, opposing_player);
             }, 4, "rations"),
             new Card("Colony", (active_player, opposing_player) => {
-                active_player.resources.nurturers = active_player.resources.nurturers + 1;
+                active_player.resources.nurturers++;
             }, 8, "rations"),
             new Card("Wolves", (active_player, opposing_player) => {
                 this.dealDamage(12, opposing_player);
             }, 10, "rations"),
             new Card("Sabotage", (active_player, opposing_player) => {
-                opposing_player.resources.seeds = active_player.resources.seeds - 4;
-                opposing_player.resources.spores = active_player.resources.spores - 4;
-                opposing_player.resources.rations = active_player.resources.rations - 4;
+                opposing_player.resources.seeds -= 4;
+                opposing_player.resources.spores -= 4;
+                opposing_player.resources.rations -= 4;
             }, 12, "rations"),
             new Card("Heist", (active_player, opposing_player) => {
-                opposing_player.resources.seeds = active_player.resources.seeds - 5;
-                opposing_player.resources.spores = active_player.resources.spores - 5;
-                opposing_player.resources.rations = active_player.resources.rations - 5;
-                active_player.resources.seeds = active_player.resources.seeds + 5;
-                active_player.resources.spores = active_player.resources.spores + 5;
-                active_player.resources.rations = active_player.resources.rations + 5;
+                opposing_player.resources.seeds -= 5;
+                opposing_player.resources.spores -= 5;
+                opposing_player.resources.rations -= 5;
+                active_player.resources.seeds += 5;
+                active_player.resources.spores += 5;
+                active_player.resources.rations += 5;
             }, 15, "rations"),
             new Card("Grizzly", (active_player, opposing_player) => {
                 opposing_player.mushroom.subtractHealth(10);
@@ -81,40 +192,34 @@ class Game {
                 this.dealDamage(32, opposing_player);
             }, 28, "rations"),
             new Card("Sprout", (active_player, opposing_player) => {
-                active_player.resources.seeds = active_player.resources.seeds + 8;
+                active_player.resources.seeds += 8;
             }, 4, "spores"),
             new Card("Mycelium", (active_player, opposing_player) => {
-                active_player.resources.spores = active_player.resources.spores + 10;
+                active_player.resources.spores += 10;
             }, 4, "spores"),
             new Card("Conjure", (active_player, opposing_player) => {
-                active_player.resources.rations = active_player.resources.rations + 8;
+                active_player.resources.rations += 8;
             }, 4, "spores"),
             new Card("Wither", (active_player, opposing_player) => {
-                opposing_player.resources.seeds = opposing_player.resources.seeds - 8;
+                opposing_player.resources.seeds -= 8;
             }, 4, "spores"),
             new Card("Spore Zap", (active_player, opposing_player) => {
-                opposing_player.resources.spores = opposing_player.resources.spores - 8;
+                opposing_player.resources.spores -= 8;
             }, 4, "spores"),
             new Card("Mold", (active_player, opposing_player) => {
-                opposing_player.resources.rations = opposing_player.resources.rations - 8;
+                opposing_player.resources.rations -= 8;
             }, 4, "spores"),
-            new Card("Colony", (active_player, opposing_player) => {
-                active_player.resources.sporecerers = active_player.resources.sporecerers + 1;
+            new Card("Symposium", (active_player, opposing_player) => {
+                active_player.resources.sporecerers++;
             }, 8, "rations"),
-            new Card("Fae Barrage", (active_player, opposing_player) => {
+            new Card("Neural Barrage", (active_player, opposing_player) => {
                 this.dealDamage(25, opposing_player);
             }, 21, "spores"),
             new Card("Root Network", (active_player, opposing_player) => {
-                active_player.mushroom.addHealth(22);
-            }, 22, "spores"),
-            new Card("Hive Mind", (active_player, opposing_player) => {
-                active_player.resources.sporecerers = active_player.resources.sporecerers + 1;
-                active_player.resources.sporecerers = active_player.resources.sporecerers + 1;
-                active_player.resources.sporecerers = active_player.resources.sporecerers + 1;
-                opposing_player.resources.sporecerers = opposing_player.resources.sporecerers - 1;
-                opposing_player.resources.sporecerers = opposing_player.resources.sporecerers - 1;
-                opposing_player.resources.sporecerers = opposing_player.resources.sporecerers - 1;
-            }, 45, "spores"),
+                active_player.resources.seeds += 12;
+                active_player.resources.spores += 12;
+                active_player.resources.rations += 12;
+            }, 40, "seeds"),
         ];
     }
 
@@ -135,222 +240,99 @@ class Game {
         opponent.hedge = Math.max(opponent.hedge, 0);
     }
 
+    initializePlayers() {
+        const player1Resources = new Resources(50, 50, 50, 2, 2, 2);
+        const player2Resources = new Resources(50, 50, 50, 2, 2, 2);
+        const player1Mushroom = new Mushroom(30);
+        const player1Hedge = new Hedge(20);
+        const player2Mushroom = new Mushroom(30);
+        const player2Hedge = new Hedge(20);
+
+        const player1Hand = new Hand([], new Deck(this.cardList));
+        const player2Hand = new Hand([], new Deck(this.cardList));
+
+        player1Hand.deck.shuffle();
+        player2Hand.deck.shuffle();
+
+        player1Hand.fillHand(); // Fill hand for player 1
+        player2Hand.fillHand(); // Fill hand for player 2
+
+        this.players.push(new Player("Player 1", player1Hand, [], player1Mushroom, player1Hedge, null, player1Resources));
+        this.players.push(new Player("Player 2", player2Hand, [], player2Mushroom, player2Hedge, null, player2Resources));
+
+        this.active_player = this.players[0]; // Set the first player as active
+    }
+
     startGame() {
-        this.state = "in progress";
-        this.turn_count = 1;
-        this.active_player = this.players[0];
-        this.updateUI(); // Update UI to reflect starting state
-        this.saveGame(); // Save game state after starting
+        this.initializePlayers(); // Initialize players when the game starts
+        this.state = "started"; // Change game state
+        this.updateUI(); // Update the UI after starting the game
     }
 
-    endTurn() {
-        this.turn_count++;
-        this.active_player = this.players[this.turn_count % this.players.length]; // Switch active player
-        this.updateUI(); // Update UI after ending a turn
-        this.saveGame(); // Save game state after ending a turn
+    playCardByName(cardName) {
+        const cardIndex = this.active_player.hand.cards.findIndex(card => card.name === cardName);
+        if (cardIndex !== -1) {
+            const card = this.active_player.hand.cards[cardIndex];
+            if (this.canPlayCard(card)) {
+                card.play(this.active_player, this.getOpposingPlayer()); // Play the card
+                this.active_player.hand.discardCard(card); // Discard the played card
+                this.active_player.hand.fillHand(); // Refill the hand after playing a card
+                this.endTurn(); // End the current turn
+                return `Played card: ${card.name}`;
+            } else {
+                return `Not enough resources to play ${card.name}`;
+            }
+        } else {
+            return `Card ${cardName} not found in hand`;
+        }
     }
 
-    getActivePlayer() {
-        return this.active_player; // Return active player
+    canPlayCard(card) {
+        // Check if the active player has enough resources to play the card
+        if (card.cost_type === "seeds" && this.active_player.resources.seeds >= card.cost) {
+            return true;
+        }
+        if (card.cost_type === "rations" && this.active_player.resources.rations >= card.cost) {
+            return true;
+        }
+        if (card.cost_type === "spores" && this.active_player.resources.spores >= card.cost) {
+            return true;
+        }
+        return false; // Not enough resources
     }
 
     getOpposingPlayer() {
-        return this.players.find(player => player !== this.active_player); // Find opposing player
+        // Return the opposing player
+        return this.players.find(player => player !== this.active_player);
     }
 
-    playCardByName(card_name) {
-        const activePlayer = this.getActivePlayer();
-        const card = activePlayer.hand.cards.find(card => card.name === card_name);
-
-        if (card) {
-            card.play(activePlayer, this.getOpposingPlayer()); // Play the card
-            activePlayer.hand.discardCard(card); // Discard card after play
-            this.updateUI(); // Update UI after playing a card
-            this.saveGame(); // Save game state after playing a card
-            return `Played ${card.name} from hand.`;
-        } else {
-            console.log(`Card "${card_name}" not found in hand.`);
-            return `Card "${card_name}" not found in hand.`;
-        }
-    }
-
-    updateUI() {
-        // Update player resource values in the UI
-        this.players.forEach((player, index) => {
-            document.getElementById(`player${index + 1}-mushroom-health`).innerText = player.mushroom.health;
-            document.getElementById(`player${index + 1}-hedge-health`).innerText = player.hedge.health;
-            document.getElementById(`player${index + 1}-resources`).innerText = `${player.resources.spores} Spores, ${player.resources.seeds} Seeds, ${player.resources.rations} Rations`;
-        });
-    }
-
-    saveGame() {
-        const gameState = {
-            state: this.state,
-            turn_count: this.turn_count,
-            players: this.players,
-            active_player: this.active_player.name,
-        };
-        localStorage.setItem('gameState', JSON.stringify(gameState));
+    endTurn() {
+        // Move to the next player's turn
+        this.active_player = this.players[(this.players.indexOf(this.active_player) + 1) % this.players.length];
+        this.turn_count++; // Increment turn count
+        this.updateUI(); // Update the UI after ending the turn
+        updateScoreboardUI(); // Ensure the scoreboard is updated at the end of each turn
     }
 
     loadGame() {
-        const savedState = localStorage.getItem('gameState');
-        if (savedState) {
-            const { state, turn_count, players, active_player } = JSON.parse(savedState);
-            this.state = state;
-            this.turn_count = turn_count;
-            this.active_player = this.players.find(player => player.name === active_player);
-            this.players = players.map(playerData => {
-                return new Player(
-                    playerData.name,
-                    new Hand(playerData.hand.cards, new Deck([])), // Assuming empty deck for simplicity
-                    playerData.buffs,
-                    new Mushroom(playerData.mushroom.health),
-                    new Hedge(playerData.hedge.health),
-                    new Deck([]), // Assuming empty deck for simplicity
-                    playerData.character,
-                    new Resources(playerData.resources.spores, playerData.resources.seeds, playerData.resources.rations)
-                );
-            });
-            this.updateUI(); // Update UI from loaded state
-        } else {
-            // Initialize default players if no game state found
-            this.players = [
-                new Player("Player 1", new Hand([], new Deck([])), [], new Mushroom(30), new Hedge(20), new Deck([]), "", new Resources(2, 5, 2, 5, 2, 5)),
-                new Player("Player 2", new Hand([], new Deck([])), [], new Mushroom(30), new Hedge(20), new Deck([]), "", new Resources(2, 5, 2, 5, 2, 5)),
-            ];
-        }
-    }
-}
-
-class Player {
-    constructor(name, hand, buffs, mushroom, hedge, deck, character, resources) {
-        this.name = name;
-        this.hand = hand;
-        this.buffs = buffs;
-        this.mushroom = mushroom;
-        this.hedge = hedge;
-        this.deck = deck;
-        this.character = character;
-        this.resources = resources;
-    }
-}
-
-class Resources {
-    constructor(sporecerers, spores, gardeners, seeds, nurturers, rations) {
-        this.sporecerers = sporecerers;
-        this.spores = spores;
-        this.gardeners = gardeners;
-        this.seeds = seeds;
-        this.nurturers = nurturers;
-        this.rations = rations;
-    }
-}
-
-class Card {
-    constructor(name, effect, cost, cost_type) {
-        this.name = name;
-        this.effect = effect;
-        this.cost = cost;
-        this.cost_type = cost_type;
+        // Initialize players when the game loads or starts
+        this.initializePlayers();
     }
 
-    play(active_player, opposing_player) {
-        const resourceType = active_player.resources[this.cost_type];
-        if (resourceType >= this.cost) {
-            active_player.resources[this.cost_type] -= this.cost; // Deduct the resource cost
-            this.effect(active_player, opposing_player); // Invoke the card's effect
-        } else {
-            console.log(`Not enough ${this.cost_type} to play ${this.name}.`);
-        }
-    }
-}
-
-class Mushroom {
-    constructor(health) {
-        this.health = health;
+    saveGame() {
+        // Code to save the game state to localStorage or other persistent storage
     }
 
-    addHealth(amount) {
-        this.health += amount;
-    }
-
-    subtractHealth(amount) {
-        this.health -= amount;
-    }
-}
-
-class Hedge {
-    constructor(health) {
-        this.health = health;
-    }
-
-    addHealth(amount) {
-        this.health += amount;
-    }
-
-    subtractHealth(amount) {
-        this.health -= amount;
-    }
-}
-
-class Deck {
-    constructor(cards) {
-        this.cards = cards;
-        this.size = cards.length;
-    }
-
-    shuffle() {
-        // Fisher-Yates shuffle algorithm
-        for (let i = this.cards.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
-        }
-        return this.cards;
-    }
-}
-
-class Hand {
-    constructor(cards, deck) {
-        this.cards = cards; // Array of cards currently in hand
-        this.deck = deck;   // Reference to the deck
-        this.maxHandSize = 7; // Maximum hand size
-    }
-
-    fillHand() {
-        while (this.cards.length < this.maxHandSize && this.deck.cards.length > 0) {
-            const drawnCard = this.deck.cards.pop(); // Draw a card from the deck
-            this.cards.push(drawnCard); // Add it to the hand
-        }
-        return `Hand filled with ${this.cards.length} cards.`;
-    }
-
-    drawCard() {
-        if (this.cards.length < this.maxHandSize && this.deck.cards.length > 0) {
-            const drawnCard = this.deck.cards.pop(); // Draw the top card from the deck
-            this.cards.push(drawnCard); // Add it to the hand
-            return `Drew ${drawnCard.name} from the deck.`;
-        } else if (this.cards.length >= this.maxHandSize) {
-            return 'Cannot draw card, hand is full!';
-        } else {
-            return 'No cards left in the deck to draw!';
-        }
-    }
-
-    discardCard(card) {
-        const index = this.cards.indexOf(card);
-        if (index > -1) {
-            this.cards.splice(index, 1); // Remove the card from hand
-            return `Discarded ${card.name} from hand.`;
-        } else {
-            return 'Card not found in hand.';
-        }
+    updateUI() {
+        // Code to update the UI based on the current game state
+        console.log(`Current turn: Player ${this.active_player.name}`); // Example of UI update
     }
 }
 
 // Initialize the Game
 const game = new Game();
 
+// Function to start the game
 function startGame() {
     game.startGame();
 }
@@ -359,3 +341,9 @@ function startGame() {
 function playCard(cardName) {
     console.log(game.playCardByName(cardName));
 }
+
+// Start the game (this could be triggered by a button in your UI)
+startGame();
+
+// Example of playing a card (this could be triggered by a UI element as well)
+playCard("Bush"); // Replace with the card name you want to play

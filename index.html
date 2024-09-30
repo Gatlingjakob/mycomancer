@@ -3,32 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Game Test UI</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Card Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        #game-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+        }
+        #hand {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .card {
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #e7f0ff;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        #status {
+            margin-top: 20px;
+        }
+        #scoreboard {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+        .player-stats {
+            margin-bottom: 10px;
+        }
+        .active-player {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
+
+<div id="game-container">
     <h1>Card Game</h1>
-    <div id="hand-container">
-        <h2>Your Hand</h2>
-        <!-- Cards will be rendered here -->
-    </div>
+    <button id="start-game">Start Game</button>
+    <div id="hand"></div>
+    <div id="status"></div>
+
+    <!-- Scoreboard Section -->
     <div id="scoreboard">
         <h2>Scoreboard</h2>
-        <div>
-            <h3>Player 1</h3>
-            <p>Mushroom Health: <span id="player1-mushroom-health">30</span></p>
-            <p>Hedge Health: <span id="player1-hedge-health">20</span></p>
-            <p>Resources: <span id="player1-resources">5 Spores, 5 Seeds</span></p>
-        </div>
-        <div>
-            <h3>Player 2</h3>
-            <p>Mushroom Health: <span id="player2-mushroom-health">30</span></p>
-            <p>Hedge Health: <span id="player2-hedge-health">20</span></p>
-            <p>Resources: <span id="player2-resources">5 Spores, 5 Seeds</span></p>
-        </div>
+        <div class="active-player" id="active-player-name"></div> <!-- Display active player name -->
+        <div id="players-stats"></div> <!-- Container for player stats -->
     </div>
-    <button onclick="startGame()">Start Game</button>
+</div>
 
-    <script src="game_script.js"></script>
+<script src="game_script.js"></script> <!-- Include your game script here -->
+
+<script>
+// Function to update the hand UI
+function updateHandUI() {
+    const handDiv = document.getElementById('hand');
+    handDiv.innerHTML = ''; // Clear the hand display
+
+    const activePlayer = game.active_player; // Get the current active player
+
+    // Iterate over the player's hand to display cards
+    activePlayer.hand.cards.forEach(card => {
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'card';
+        cardDiv.innerHTML = card.name; // Display card name
+        cardDiv.onclick = () => playCard(card.name); // Play card on click
+        handDiv.appendChild(cardDiv); // Add card to hand display
+    });
+}
+
+// Function to update the scoreboard UI
+function updateScoreboardUI() {
+    const playersStatsDiv = document.getElementById('players-stats');
+    playersStatsDiv.innerHTML = ''; // Clear previous stats
+
+    game.players.forEach(player => {
+        const playerDiv = document.createElement('div');
+        playerDiv.className = 'player-stats';
+        playerDiv.innerHTML = `
+            <strong>${player.name}</strong>: 
+            Seeds: ${player.resources.seeds}, 
+            Spores: ${player.resources.spores}, 
+            Rations: ${player.resources.rations}, 
+            Mushroom Health: ${player.mushroom.health}, 
+            Hedge Health: ${player.hedge.health}, 
+            Gardeners: ${player.resources.gardeners}, 
+            Nurturers: ${player.resources.nurturers}, 
+            Sporecerers: ${player.resources.sporecerers}
+        `;
+        playersStatsDiv.appendChild(playerDiv); // Add player stats to scoreboard
+    });
+
+    // Update the active player name display
+    const activePlayerNameDiv = document.getElementById('active-player-name');
+    activePlayerNameDiv.innerHTML = `Active Player: ${game.active_player.name}`;
+}
+
+// Start the game button listener
+document.getElementById('start-game').onclick = () => {
+    startGame(); // Start the game
+    updateHandUI(); // Update the UI to show the player's hand
+    updateScoreboardUI(); // Update scoreboard after starting the game
+};
+
+// Update the UI after playing a card
+function updateUIAfterPlay(message) {
+    document.getElementById('status').innerText = message; // Display status message
+    updateHandUI(); // Refresh the hand display
+    updateScoreboardUI(); // Refresh the scoreboard after playing a card
+}
+
+// Override the playCard function to update UI after playing
+function playCard(cardName) {
+    const message = game.playCardByName(cardName); // Play the card
+    updateUIAfterPlay(message); // Update UI with the result
+}
+
+// Start the game (if needed) on page load
+// startGame(); // Uncomment if you want to auto-start on page load
+</script>
+
 </body>
 </html>

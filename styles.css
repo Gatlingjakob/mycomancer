@@ -21,16 +21,6 @@ body {
     width: 45%;
 }
 
-#player-hand {
-    margin-bottom: 20px;
-}
-
-#hand-container {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
 .card {
     background-color: #fff;
     border: 1px solid #ccc;
@@ -42,13 +32,33 @@ body {
     transition: background-color 0.3s;
 }
 
-.card:hover {
-    background-color: #e0e0e0;
-}
-
 #card-details {
     background-color: #fff;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+#hand-container {
+    margin: 20px 0;
+}
+
+#player-hand {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between cards */
+}
+
+.card {
+    border: 1px solid #333; /* Card border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Inner padding */
+    width: 100px; /* Fixed width for cards */
+    text-align: center; /* Center text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.card:hover {
+    background-color: #f0f0f0; /* Highlight card on hover */
 }
