@@ -40,9 +40,34 @@ body {
     transform: scale(1.05);
 }
 
+/* Keyframes for floating up and fading out */
+@keyframes floatUpFadeOut {
+    0% {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -60%); /* Floats up slightly */
+        opacity: 0; /* Fades out */
+    }
+}
+
+/* Status text styling */
 #status {
     margin-top: 20px;
     color: white;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Hidden initially */
+    transition: opacity 0.5s ease-out;
+    font-size: 30px;
+}
+
+/* Add the animation for the floating and fading out effect */
+.status-float-up {
+    animation: floatUpFadeOut 2s ease forwards;
 }
 
 #scoreboard {
@@ -58,6 +83,9 @@ body {
     font-weight: bold;
     color: #007bff;
     font-size: 1.2em;
+    left: 5%;
+    top: 4%;
+    position: absolute;
 }
 
 .card-effect-text{
@@ -232,6 +260,9 @@ body {
     width: 45px;
     background-color: #c4c4c4; /* Placeholder color for the stem */
     transition: height 0.3s ease;
+    border-left: 3px solid #706858;
+    border-right: 3px solid #706858;
+    border-bottom: 3px solid #706858;
 }
 
 .mushroom-cap {

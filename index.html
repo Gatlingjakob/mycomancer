@@ -104,9 +104,21 @@ document.getElementById('start-game').onclick = () => {
     document.getElementById('start-game').style.display = 'none';
 };
 
-// Update the UI after playing a card
 function updateUIAfterPlay(message) {
-    document.getElementById('status').innerText = message; // Display status message
+    const statusElement = document.getElementById('status');
+    
+    // Update the status message
+    statusElement.innerText = message;
+    
+    // Remove any existing animation class
+    statusElement.classList.remove('status-float-up');
+    
+    // Trigger reflow to reset the animation (important for consecutive updates)
+    void statusElement.offsetWidth;
+    
+    // Add the floating and fading out effect
+    statusElement.classList.add('status-float-up');
+    
     updateMushroomSize(); // Call this function to update the mushroom sizes dynamically
     updateHedgeSize(); // Call this function to update the hedge sizes dynamically
     updateHandUI(); // Refresh the hand display
@@ -118,15 +130,16 @@ function updateUIAfterPlay(message) {
     
     // Check win conditions
     if (player1Health <= 0) {
-            setTimeout(() => displayWinPopup(game.players[1].name), 100); // Player 2 wins
-        } else if (player2Health <= 0) {
-            setTimeout(() => displayWinPopup(game.players[0].name), 100); // Player 1 wins
-        } else if (player1Health >= 100) {
-            setTimeout(() => displayWinPopup(game.players[0].name), 100); // Player 1 wins by reaching 100 health
-        } else if (player2Health >= 100) {
-            setTimeout(() => displayWinPopup(game.players[1].name), 100); // Player 2 wins by reaching 100 health
-        }
+        setTimeout(() => displayWinPopup(game.players[1].name), 100); // Player 2 wins
+    } else if (player2Health <= 0) {
+        setTimeout(() => displayWinPopup(game.players[0].name), 100); // Player 1 wins
+    } else if (player1Health >= 100) {
+        setTimeout(() => displayWinPopup(game.players[0].name), 100); // Player 1 wins by reaching 100 health
+    } else if (player2Health >= 100) {
+        setTimeout(() => displayWinPopup(game.players[1].name), 100); // Player 2 wins by reaching 100 health
+    }
 }
+
 
 // Function to update the mushroom size based on health
 function updateMushroomSize() {
