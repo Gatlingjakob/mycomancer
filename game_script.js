@@ -233,7 +233,7 @@ class Game {
 
         // Add 2-3 copies of each card to the deck
         cardBaseList.forEach(card => {
-            const numberOfCopies = Math.floor(Math.random() * 2) + 2; // Randomly add 2 or 3 copies
+            const numberOfCopies = Math.floor(Math.random() * 2) + 3; // Randomly add 3 or 4 copies
             for (let i = 0; i < numberOfCopies; i++) {
                 fullCardList.push(new Card(card.name, card.effect, card.cost, card.cost_type, card.effect_description));
             }
