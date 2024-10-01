@@ -200,7 +200,7 @@ body {
 /* Player 1's hedge next to the mushroom */
 #player1-hedge {
     position: absolute;
-    left: 40%; /* Positioned right next to Player 1's mushroom */
+    left: 42%; /* Positioned right next to Player 1's mushroom */
     bottom: 30%; /* Align to bottom of the container */
     display: flex;
     flex-direction: column;
@@ -220,7 +220,7 @@ body {
 /* Player 2's hedge next to the mushroom */
 #player2-hedge {
     position: absolute;
-    right: 40%; /* Positioned left next to Player 2's mushroom */
+    right: 42%; /* Positioned left next to Player 2's mushroom */
     bottom: 30%; /* Align to bottom of the container */
     display: flex;
     flex-direction: column;
@@ -245,8 +245,9 @@ body {
 
 /* Hedge styles */
 .hedge {
-    background-color: green; /* Hedge color */
-    width: 20px; /* Width of the hedge */
+    background-color: rgb(40, 122, 40); /* Hedge color */
+    border: 3px solid #153f32;
+    width: 15px; /* Width of the hedge */
     position: relative; /* Position for inner elements */
     bottom: 0; /* Align to bottom */
     transition: height 0.3s ease; /* Transition for height */

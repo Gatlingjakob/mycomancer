@@ -98,6 +98,8 @@ document.getElementById('start-game').onclick = () => {
     startGame(); // Start the game
     updateHandUI(); // Update the UI to show the player's hand
     updateScoreboardUI(); // Update scoreboard after starting the game
+    updateMushroomSize(); // Call this function to update the mushroom sizes dynamically
+    updateHedgeSize(); // Call this function to update the hedge sizes dynamically
     // Hide the start game button after it is clicked
     document.getElementById('start-game').style.display = 'none';
 };
@@ -109,6 +111,21 @@ function updateUIAfterPlay(message) {
     updateHedgeSize(); // Call this function to update the hedge sizes dynamically
     updateHandUI(); // Refresh the hand display
     updateScoreboardUI(); // Refresh the scoreboard after playing a card
+    
+    // Check for game over condition
+    const player1Health = game.players[0].mushroom.health;
+    const player2Health = game.players[1].mushroom.health;
+    
+    // Check win conditions
+    if (player1Health <= 0) {
+            setTimeout(() => displayWinPopup(game.players[1].name), 100); // Player 2 wins
+        } else if (player2Health <= 0) {
+            setTimeout(() => displayWinPopup(game.players[0].name), 100); // Player 1 wins
+        } else if (player1Health >= 100) {
+            setTimeout(() => displayWinPopup(game.players[0].name), 100); // Player 1 wins by reaching 100 health
+        } else if (player2Health >= 100) {
+            setTimeout(() => displayWinPopup(game.players[1].name), 100); // Player 2 wins by reaching 100 health
+        }
 }
 
 // Function to update the mushroom size based on health
@@ -119,9 +136,9 @@ function updateMushroomSize() {
     const player1Health = game.players[0].mushroom.health;
     const player2Health = game.players[1].mushroom.health;
 
-    // Set the base height and scaling factor
+    // Set the base height and scaling factor for mushrooms
     const baseHeight = 20; // Adjust this to make the stem longer overall
-    const maxHeight = 180; // Maximum height of the stem when health is 100
+    const maxHeight = 220; // Maximum height of the stem when health is 100 (increased for visibility)
 
     // Calculate the height for player 1's mushroom stem
     const player1StemHeight = player1Health === 0 ? 0 : baseHeight + (player1Health / 100) * maxHeight;
@@ -151,8 +168,8 @@ function updateHedgeSize() {
     const player2HedgeHealth = game.players[1].hedge.health;
 
     // Set the base height and scaling factor for hedges
-    const hedgeBaseHeight = 30; // Base height of the hedge
-    const hedgeMaxHeight = 150; // Maximum height of the hedge when health is 100
+    const hedgeBaseHeight = 5; // Base height of the hedge
+    const hedgeMaxHeight = 600; // **Doubled the maximum height of the hedge when health is 100**
 
     // Calculate the height for player 1's hedge
     const player1HedgeHeight = player1HedgeHealth === 0 ? 0 : hedgeBaseHeight + (player1HedgeHealth / 100) * hedgeMaxHeight;
@@ -170,11 +187,16 @@ function updateHedgeSize() {
         <div class="hedge" style="height: ${player2HedgeHeight}px;"></div>
     `;
 }
-
 // Override the playCard function to update UI after playing
 function playCard(cardName) {
     const message = game.playCardByName(cardName); // Play the card
     updateUIAfterPlay(message); // Update UI with the result
+}
+
+// Function to display the win popup
+function displayWinPopup(winner) {
+    alert(`${winner} wins!`); // Simple alert to show the winner
+    // Optionally, you can also add code to reset the game or go back to the main menu.
 }
 
 // Start the game (if needed) on page load
