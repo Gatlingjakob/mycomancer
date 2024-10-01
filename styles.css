@@ -178,3 +178,76 @@ body {
     transform: scale(1.05); /* Slightly enlarge the button when hovered */
     box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.7); /* Increase shadow on hover */
 }
+
+/* Positioning for Player 1 and Player 2 Mushrooms */
+#mushroom-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Player 1's mushroom on the left above the hand */
+#player1-mushroom {
+    position: absolute;
+    left: 20%; /* Adjust to position on the left */
+    bottom: 30%; /* Positioned above the hand */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Player 1's hedge next to the mushroom */
+#player1-hedge {
+    position: absolute;
+    left: 40%; /* Positioned right next to Player 1's mushroom */
+    bottom: 30%; /* Align to bottom of the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Player 2's mushroom on the right above the hand */
+#player2-mushroom {
+    position: absolute;
+    right: 20%; /* Adjust to position on the right */
+    bottom: 30%; /* Positioned above the hand */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Player 2's hedge next to the mushroom */
+#player2-hedge {
+    position: absolute;
+    right: 40%; /* Positioned left next to Player 2's mushroom */
+    bottom: 30%; /* Align to bottom of the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Mushroom stem and cap (same as before) */
+.mushroom-stem {
+    width: 45px;
+    background-color: #c4c4c4; /* Placeholder color for the stem */
+    transition: height 0.3s ease;
+}
+
+.mushroom-cap {
+    width: 300px;
+    height: 150px;
+    background-image: url('images/mushroom_cap.png'); /* Replace with your mushroom cap image */
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ease;
+}
+
+/* Hedge styles */
+.hedge {
+    background-color: green; /* Hedge color */
+    width: 20px; /* Width of the hedge */
+    position: relative; /* Position for inner elements */
+    bottom: 0; /* Align to bottom */
+    transition: height 0.3s ease; /* Transition for height */
+}

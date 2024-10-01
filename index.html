@@ -11,17 +11,23 @@
     <div class="container">
         <div class="background"></div>
         
-    <div class="centered-div">
-        <button id="start-game">Start Game</button>
-    </div>
+        <div class="centered-div">
+            <button id="start-game">Start Game</button>
+        </div>
+
         <div id="status"></div>
 
-        <!-- Scoreboard Section -->
-         
+        <!-- Scoreboard Section -->   
         <div id="scoreboard">
             <div class="active-player" id="active-player-name"></div> <!-- Display active player name -->
             <div id="players-stats"></div> <!-- Container for player stats -->
         </div>
+                
+        <!-- Mushrooms and Hedges for Player 1 and Player 2 -->
+        <div id="player1-mushroom" class="mushroom-container"></div>
+        <div id="player1-hedge" class="hedge-container"></div> <!-- Hedge for Player 1, to the right of the mushroom -->
+        <div id="player2-hedge" class="hedge-container"></div> <!-- Hedge for Player 2, to the left of the mushroom -->
+        <div id="player2-mushroom" class="mushroom-container"></div>
 
         <div id="hand"></div>
     </div>
@@ -99,8 +105,70 @@ document.getElementById('start-game').onclick = () => {
 // Update the UI after playing a card
 function updateUIAfterPlay(message) {
     document.getElementById('status').innerText = message; // Display status message
+    updateMushroomSize(); // Call this function to update the mushroom sizes dynamically
+    updateHedgeSize(); // Call this function to update the hedge sizes dynamically
     updateHandUI(); // Refresh the hand display
     updateScoreboardUI(); // Refresh the scoreboard after playing a card
+}
+
+// Function to update the mushroom size based on health
+function updateMushroomSize() {
+    const player1Mushroom = document.getElementById('player1-mushroom');
+    const player2Mushroom = document.getElementById('player2-mushroom');
+
+    const player1Health = game.players[0].mushroom.health;
+    const player2Health = game.players[1].mushroom.health;
+
+    // Set the base height and scaling factor
+    const baseHeight = 20; // Adjust this to make the stem longer overall
+    const maxHeight = 180; // Maximum height of the stem when health is 100
+
+    // Calculate the height for player 1's mushroom stem
+    const player1StemHeight = player1Health === 0 ? 0 : baseHeight + (player1Health / 100) * maxHeight;
+
+    // Create the elements for player 1's mushroom (only the stem scales)
+    player1Mushroom.innerHTML = `  
+        <div class="mushroom-cap"></div> <!-- Cap stays the same size -->
+        <div class="mushroom-stem" style="height: ${player1StemHeight}px"></div> <!-- Only the stem scales -->
+    `;
+
+    // Calculate the height for player 2's mushroom stem
+    const player2StemHeight = player2Health === 0 ? 0 : baseHeight + (player2Health / 100) * maxHeight;
+
+    // Create the elements for player 2's mushroom (only the stem scales)
+    player2Mushroom.innerHTML = `  
+        <div class="mushroom-cap"></div> <!-- Cap stays the same size -->
+        <div class="mushroom-stem" style="height: ${player2StemHeight}px"></div> <!-- Only the stem scales -->
+    `;
+}
+
+// Function to update the hedge size based on health
+function updateHedgeSize() {
+    const player1Hedge = document.getElementById('player1-hedge');
+    const player2Hedge = document.getElementById('player2-hedge');
+
+    const player1HedgeHealth = game.players[0].hedge.health;
+    const player2HedgeHealth = game.players[1].hedge.health;
+
+    // Set the base height and scaling factor for hedges
+    const hedgeBaseHeight = 30; // Base height of the hedge
+    const hedgeMaxHeight = 150; // Maximum height of the hedge when health is 100
+
+    // Calculate the height for player 1's hedge
+    const player1HedgeHeight = player1HedgeHealth === 0 ? 0 : hedgeBaseHeight + (player1HedgeHealth / 100) * hedgeMaxHeight;
+
+    // Create the hedge element for player 1
+    player1Hedge.innerHTML = `  
+        <div class="hedge" style="height: ${player1HedgeHeight}px;"></div>
+    `;
+
+    // Calculate the height for player 2's hedge
+    const player2HedgeHeight = player2HedgeHealth === 0 ? 0 : hedgeBaseHeight + (player2HedgeHealth / 100) * hedgeMaxHeight;
+
+    // Create the hedge element for player 2
+    player2Hedge.innerHTML = `  
+        <div class="hedge" style="height: ${player2HedgeHeight}px;"></div>
+    `;
 }
 
 // Override the playCard function to update UI after playing
