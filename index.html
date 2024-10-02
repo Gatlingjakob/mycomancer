@@ -51,9 +51,12 @@ function updateHandUI() {
     activePlayer.hand.cards.forEach(card => {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
-        cardDiv.innerHTML = `
+        cardDiv.innerHTML = `      
+            (${card.cost} ${card.cost_type})<br>
             ${card.name}<br>
-            (${card.cost} ${card.cost_type})<br><br>
+            <div class="card-image">
+                  <img class="card-art" src="images/card_art/${card.name.replace(/\s+/g, '_').toLowerCase()}.png" alt="${card.name} image" />
+            </div>
             <div class="card-effect-text">${card.effect_description}</div>
         `; // Display card contents
         cardDiv.onclick = () => playCard(card.name); // Play card on click

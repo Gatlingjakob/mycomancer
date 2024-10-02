@@ -306,3 +306,12 @@ body {
         -6px 6px 0 #3e4b63,    /* Bottom-left shadow */
         6px 6px 0 #3e4b63     /* Bottom-right shadow */
 }
+
+.card-image{
+    height: 60%;
+    width: 100%;
+}
+
+.card-art{
+    width: inherit;
+}
