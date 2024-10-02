@@ -299,10 +299,10 @@ body {
 }
 
 .title-card h1 {
-    color: #e4d6b8; /* Main text color */
+    color: #8cbcdd; ; /* Main text color */
     text-shadow: 
-        -6px -6px 0 #7b6b50,   /* Top-left shadow */
-        6px -6px 0 #7b6b50,    /* Top-right shadow */
-        -6px 6px 0 #7b6b50,    /* Bottom-left shadow */
-        6px 6px 0 #7b6b50     /* Bottom-right shadow */
+        -6px -6px 0 #3e4b63,   /* Top-left shadow */
+        6px -6px 0 #3e4b63,    /* Top-right shadow */
+        -6px 6px 0 #3e4b63,    /* Bottom-left shadow */
+        6px 6px 0 #3e4b63     /* Bottom-right shadow */
 }
