@@ -11,6 +11,11 @@
     <div class="container">
         <div class="background"></div>
         
+        <!-- Title Card -->
+        <div id="title-card" class="title-card">
+            <h1>Mycomancers</h1>
+        </div>
+
         <div class="centered-div">
             <button id="start-game">Start Game</button>
         </div>
@@ -102,6 +107,7 @@ document.getElementById('start-game').onclick = () => {
     updateHedgeSize(); // Call this function to update the hedge sizes dynamically
     // Hide the start game button after it is clicked
     document.getElementById('start-game').style.display = 'none';
+    document.getElementById('title-card').style.display = 'none';
 };
 
 function updateUIAfterPlay(message) {

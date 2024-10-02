@@ -190,7 +190,6 @@ body {
     border: 3px solid #977e50;
     border-radius: 5px;
     padding: 10px;
-    background-color: #e4d6b8;
     border-radius: 8px; /* Rounded corners for a carved board look */
     padding: 20px 50px; /* Add some padding to make the button large */
     font-size: 28px; /* Increase font size for visibility */
@@ -282,4 +281,28 @@ body {
     position: relative; /* Position for inner elements */
     bottom: 0; /* Align to bottom */
     transition: height 0.3s ease; /* Transition for height */
+}
+
+.title-card {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;    
+    font-size: 70px;
+    font-family: Impact, 'Arial Narrow Bold', sans-serif, sans-serif;
+    letter-spacing: 7px;
+}
+
+.title-card h1 {
+    color: #e4d6b8; /* Main text color */
+    text-shadow: 
+        -6px -6px 0 #7b6b50,   /* Top-left shadow */
+        6px -6px 0 #7b6b50,    /* Top-right shadow */
+        -6px 6px 0 #7b6b50,    /* Bottom-left shadow */
+        6px 6px 0 #7b6b50     /* Bottom-right shadow */
 }
