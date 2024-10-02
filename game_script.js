@@ -158,7 +158,7 @@ class Game {
             new Card("Garden Wall", (active_player, opposing_player) => {
                 active_player.hedge.addHealth(22);
             }, 12, "seeds", "Hedge +22"),
-            new Card("Fungus", (active_player, opposing_player) => {
+            new Card("Fungal Force", (active_player, opposing_player) => {
                 active_player.mushroom.addHealth(20);
             }, 18, "seeds", "Mushroom +20"),
             new Card("Tower Cap", (active_player, opposing_player) => {
