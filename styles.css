@@ -63,6 +63,7 @@ body {
     opacity: 0; /* Hidden initially */
     transition: opacity 0.5s ease-out;
     font-size: 30px;
+    z-index: 12;
 }
 
 /* Add the animation for the floating and fading out effect */
