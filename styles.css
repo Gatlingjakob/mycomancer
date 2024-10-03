@@ -22,7 +22,7 @@ body {
 }
 
 .card {
-    border: 3px solid #977e50;
+    border: 4px solid #977e50;
     border-radius: 5px;
     padding: 10px;
     background-color: #e4d6b8;
@@ -262,18 +262,29 @@ body {
     width: 45px;
     background-color: #c4c4c4; /* Placeholder color for the stem */
     transition: height 0.3s ease;
-    border-left: 3px solid #706858;
-    border-right: 3px solid #706858;
-    border-bottom: 3px solid #706858;
+    border-left: 4px solid #706858;
+    border-right: 4px solid #706858;
+    border-bottom: 4px solid #706858;
 }
 
-.mushroom-cap {
+.mushroom-cap-player-1 {
     width: 300px;
     height: 150px;
-    background-image: url('images/mushroom_cap.png'); /* Replace with your mushroom cap image */
+    background-image: url('images/player_1_mushroom.png'); /* Replace with your mushroom cap image */
     background-size: contain;
     background-repeat: no-repeat;
     transition: transform 0.3s ease;
+    filter: brightness(0.92);
+}
+
+.mushroom-cap-player-2 {
+    width: 300px;
+    height: 150px;
+    background-image: url('images/player_2_mushroom.png'); /* Replace with your mushroom cap image */
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ease;
+    filter: brightness(0.92);
 }
 
 /* Hedge styles */
