@@ -195,7 +195,7 @@ class Game {
             new Card("Grizzly", (active_player, opposing_player) => {
                 this.dealDamage(16, opposing_player);
             }, 15, "rations", "Attack 16"),
-            new Card("Armada", (active_player, opposing_player) => {
+            new Card("Phalanx", (active_player, opposing_player) => {
                 this.dealDamage(32, opposing_player);
             }, 28, "rations", "Attack 32"),
             new Card("Sprout", (active_player, opposing_player) => {
