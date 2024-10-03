@@ -91,6 +91,8 @@ body {
 .card-effect-text{
     color: green;
     text-align: center;
+    font-size: 11px;
+    margin-top: 10px;
 }
 
 .container {
@@ -314,4 +316,16 @@ body {
 
 .card-art{
     width: inherit;
+}
+
+.card-name{
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 12px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.card-cost{
+    font-size: 8px;
 }

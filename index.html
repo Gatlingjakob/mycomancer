@@ -52,8 +52,8 @@ function updateHandUI() {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
         cardDiv.innerHTML = `      
-            (${card.cost} ${card.cost_type})<br>
-            ${card.name}<br>
+            <div class="card-cost">(${card.cost} ${card.cost_type})</div>
+            <div class="card-name">${card.name}</div>
             <div class="card-image">
                   <img class="card-art" src="images/card_art/${card.name.replace(/\s+/g, '_').toLowerCase()}.png" alt="${card.name} image" />
             </div>
