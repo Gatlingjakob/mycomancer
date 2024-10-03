@@ -75,20 +75,140 @@ function updateScoreboardUI() {
         if (player.name == "Player 1") {
             playerDiv.innerHTML = `
             <div class="stats-container left">
-                <div class="stat-box blue">Sporecerers <span>${player.resources.sporecerers}</span> Spores <span>${player.resources.spores}</span></div>
-                <div class="stat-box green">Gardeners <span>${player.resources.gardeners}</span> Seeds <span>${player.resources.seeds}</span></div>
-                <div class="stat-box purple">Nurturers <span>${player.resources.nurturers}</span> Rations <span>${player.resources.rations}</span></div>
-                <div class="stat-box gray">Mushroom <span>${player.mushroom.health}</span> Hedge <span>${player.hedge.health}</span></div>
+                <div class="stat-box blue">
+                    <div class="child-div left-section">
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_sporecerers.png" alt="resource image" />
+                        </div>
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_spores.png" alt="resource image" />
+                        </div>
+                    </div>
+                    <div class="child-div right-section">                       
+                        <span>Sporecerers</span>
+                        <span class="resource-counter">${player.resources.sporecerers}</span>
+                        <span>Spores</span> 
+                        <span class="resource-counter">${player.resources.spores}</span>
+                    </div>
+                </div>
+                <div class="stat-box green">
+                    <div class="child-div left-section">
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_gardeners.png" alt="resource image" />
+                        </div>
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_seeds.png" alt="resource image" />
+                        </div>
+                    </div>
+                    <div class="child-div right-section">                       
+                        <span>Gardeners</span>
+                        <span class="resource-counter">${player.resources.gardeners}</span>
+                        <span>Seeds</span> 
+                        <span class="resource-counter">${player.resources.seeds}</span>
+                    </div>
+                </div>
+                <div class="stat-box purple">
+                    <div class="child-div left-section">
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_nurturers.png" alt="resource image" />
+                        </div>
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_rations.png" alt="resource image" />
+                        </div>
+                    </div>
+                    <div class="child-div right-section">                       
+                        <span>Nurturers</span>
+                        <span class="resource-counter">${player.resources.nurturers}</span>
+                        <span>Rations</span> 
+                        <span class="resource-counter">${player.resources.rations}</span>
+                    </div>
+                </div>
+                <div class="stat-box gray">
+                    <div class="child-div left-section">
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_mushroom.png" alt="resource image" />
+                        </div>
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_hedge.png" alt="resource image" />
+                        </div>
+                    </div>
+                    <div class="child-div right-section">                       
+                        <span>Mushroom</span>
+                        <span class="resource-counter">${player.mushroom.health}</span>
+                        <span>Hedge</span> 
+                        <span class="resource-counter">${player.hedge.health}</span>
+                    </div>
+                </div>
             </div>
             ` 
         }
         if (player.name == "Player 2") {
             playerDiv.innerHTML = `
             <div class="stats-container right">
-                <div class="stat-box blue">Sporecerers <span>${player.resources.sporecerers}</span> Spores <span>${player.resources.spores}</span></div>
-                <div class="stat-box green">Gardeners <span>${player.resources.gardeners}</span> Seeds <span>${player.resources.seeds}</span></div>
-                <div class="stat-box purple">Nurturers <span>${player.resources.nurturers}</span> Rations <span>${player.resources.rations}</span></div>
-                <div class="stat-box gray">Mushroom <span>${player.mushroom.health}</span> Hedge <span>${player.hedge.health}</span></div>
+                <div class="stat-box blue">
+                    <div class="child-div left-section">
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_sporecerers.png" alt="resource image" />
+                        </div>
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_spores.png" alt="resource image" />
+                        </div>
+                    </div>
+                    <div class="child-div right-section">                       
+                        <span>Sporecerers</span>
+                        <span class="resource-counter">${player.resources.sporecerers}</span>
+                        <span>Spores</span> 
+                        <span class="resource-counter">${player.resources.spores}</span>
+                    </div>
+                </div>
+                <div class="stat-box green">
+                    <div class="child-div left-section">
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_gardeners.png" alt="resource image" />
+                        </div>
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_seeds.png" alt="resource image" />
+                        </div>
+                    </div>
+                    <div class="child-div right-section">                       
+                        <span>Gardeners</span>
+                        <span class="resource-counter">${player.resources.gardeners}</span>
+                        <span>Seeds</span> 
+                        <span class="resource-counter">${player.resources.seeds}</span>
+                    </div>
+                </div>
+                <div class="stat-box purple">
+                    <div class="child-div left-section">
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_nurturers.png" alt="resource image" />
+                        </div>
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_rations.png" alt="resource image" />
+                        </div>
+                    </div>
+                    <div class="child-div right-section">                       
+                        <span>Nurturers</span>
+                        <span class="resource-counter">${player.resources.nurturers}</span>
+                        <span>Rations</span> 
+                        <span class="resource-counter">${player.resources.rations}</span>
+                    </div>
+                </div>
+                <div class="stat-box gray">
+                    <div class="child-div left-section">
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_mushroom.png" alt="resource image" />
+                        </div>
+                        <div class="resource-icon">
+                            <img class="resource-art" src="images/resources_art/resource_icon_hedge.png" alt="resource image" />
+                        </div>
+                    </div>
+                    <div class="child-div right-section">                       
+                        <span>Mushroom</span>
+                        <span class="resource-counter">${player.mushroom.health}</span>
+                        <span>Hedge</span> 
+                        <span class="resource-counter">${player.hedge.health}</span>
+                    </div>
+                </div>
             </div>
             `;
         }
