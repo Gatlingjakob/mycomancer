@@ -261,12 +261,12 @@ class Game {
 
     initializePlayers() {
         if(this.players.length < 2){
-            const player1Resources = new Resources(50, 50, 50, 3, 3, 3);
-            const player2Resources = new Resources(50, 50, 50, 3, 3, 3);
+            const player1Resources = new Resources(10, 10, 10, 2, 2, 2);
+            const player2Resources = new Resources(10, 10, 10, 2, 2, 2);
             const player1Mushroom = new Mushroom(30);
-            const player1Hedge = new Hedge(20);
+            const player1Hedge = new Hedge(15);
             const player2Mushroom = new Mushroom(30);
-            const player2Hedge = new Hedge(20);
+            const player2Hedge = new Hedge(15);
 
             const player1Hand = new Hand([], new Deck(this.cardList));
             const player2Hand = new Hand([], new Deck(this.cardList));
