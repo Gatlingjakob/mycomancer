@@ -10,6 +10,14 @@
 
     <div class="container">
         <div class="background"></div>
+
+        <!-- Volume Control Button -->
+        <div class="volume-container">
+            <button class="volume-button" id="volume-button">🔊</button>
+            <div class="volume-slider-container" id="volume-slider-container">
+                <input type="range" min="0" max="1" step="0.01" value="0.5" id="volume-slider" class="volume-slider">
+            </div>
+        </div>
         
         <!-- Title Card -->
         <div id="title-card" class="title-card">
@@ -40,6 +48,29 @@
 <script src="game_script.js"></script> <!-- Include your game script here -->
 
 <script>
+// Background music placeholder
+const backgroundMusic = new Audio('audio/mycomancers_bgm.mp3'); // Replace with actual file later
+backgroundMusic.loop = true; // Loop the music
+backgroundMusic.volume = 0.5; // Set default volume
+
+// Toggle the volume slider visibility
+const volumeButton = document.getElementById('volume-button');
+const volumeSliderContainer = document.getElementById('volume-slider-container');
+
+volumeButton.onclick = () => {
+    if (volumeSliderContainer.style.display === 'none' || volumeSliderContainer.style.display === '') {
+        volumeSliderContainer.style.display = 'block'; // Show slider
+    } else {
+        volumeSliderContainer.style.display = 'none'; // Hide slider
+    }
+};
+
+// Update the background music volume
+const volumeSlider = document.getElementById('volume-slider');
+volumeSlider.oninput = (event) => {
+    backgroundMusic.volume = event.target.value; // Adjust the volume of the music
+};
+
 // Function to update the hand UI
 function updateHandUI() {
     const handDiv = document.getElementById('hand');
@@ -230,7 +261,8 @@ document.getElementById('start-game').onclick = () => {
     updateHedgeSize(); // Call this function to update the hedge sizes dynamically
     // Hide the start game button after it is clicked
     document.getElementById('start-game').style.display = 'none';
-    document.getElementById('title-card').style.display = 'none';
+    document.getElementById('title-card').style.display = 'none'; 
+    backgroundMusic.play(); // Start playing the background music
 };
 
 function updateUIAfterPlay(message) {
