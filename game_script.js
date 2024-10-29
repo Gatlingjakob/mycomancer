@@ -289,8 +289,8 @@ class Game {
 
     initializePlayers() {
         if(this.players.length < 2){
-            const player1Resources = new Resources(10, 10, 10, 2, 2, 2);
-            const player2Resources = new Resources(10, 10, 10, 2, 2, 2);
+            const player1Resources = new Resources(15, 15, 15, 3, 3, 3);
+            const player2Resources = new Resources(15, 15, 15, 3, 3, 3);
             const player1Mushroom = new Mushroom(30);
             const player1Hedge = new Hedge(15);
             const player2Mushroom = new Mushroom(30);
