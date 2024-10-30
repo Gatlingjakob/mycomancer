@@ -254,7 +254,7 @@ class Game {
                 active_player.resources.seeds += 20;
                 active_player.resources.spores += 20;
                 active_player.resources.rations += 20;
-            }, 40, "seeds", "Resources +12"),
+            }, 40, "spores", "Resources +20"),
         ];
 
         const fullCardList = [];
